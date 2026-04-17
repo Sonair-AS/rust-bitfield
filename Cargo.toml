@@ -1,4 +1,5 @@
 [package]
+edition = "2021"
 name = "bitfield"
 version = "0.13.2"
 authors = ["Loïc Damien <loic.damien@dzamlo.ch>"]
