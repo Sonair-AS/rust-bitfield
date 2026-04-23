@@ -271,7 +271,6 @@ macro_rules! bitfield_fields {
 /// fn main() {
 ///     let foobar = FooBar(0x11223344);
 ///     println!("{:?}", foobar);
-
 /// }
 /// ```
 #[macro_export(local_inner_macros)]
@@ -605,8 +604,7 @@ macro_rules! impl_bitrange_for_u {
     ($t:ty, $bitrange_ty:ty) => {
         impl BitRange<$bitrange_ty> for $t {
             #[inline]
-            #[allow(unknown_lints)] // Forward-compat with future clippy lints
-            #[allow(cast_lossless)] // Macro generates casts between all integer type combinations
+            #[allow(clippy::cast_lossless)] // Macro generates casts between all integer type combinations
             fn bit_range(&self, msb: usize, lsb: usize) -> $bitrange_ty {
                 let bit_len = size_of::<$t>()*8;
                 let result_bit_len = size_of::<$bitrange_ty>()*8;
@@ -616,8 +614,7 @@ macro_rules! impl_bitrange_for_u {
             }
 
             #[inline]
-            #[allow(unknown_lints)] // Forward-compat with future clippy lints
-            #[allow(cast_lossless)] // Macro generates casts between all integer type combinations
+            #[allow(clippy::cast_lossless)] // Macro generates casts between all integer type combinations
             fn set_bit_range(&mut self, msb: usize, lsb: usize, value: $bitrange_ty) {
                 let bit_len = size_of::<$t>()*8;
                 let mask: $t = !(0 as $t)
