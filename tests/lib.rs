@@ -487,6 +487,21 @@ bitfield! {
     signed_foo3, set_signed_foo3: 8, 1;
     signed_foo4, set_signed_foo4: 19, 4;
     u128, u128_getter, set_u128: 19, 4;
+    u8, u8_getter, set_u8: 11, 4;
+}
+
+#[test]
+fn test_arraybitfield_u8() {
+    let mut ab = ArrayBitfield([0; 3]);
+
+    ab.set_u8(0xA5);
+    assert_eq!([0x50, 0x0A, 0x00], ab.0);
+    assert_eq!(0xA5, ab.u8_getter());
+
+    ab.0 = [0xFF; 3];
+    ab.set_u8(0);
+    assert_eq!([0x0F, 0xF0, 0xFF], ab.0);
+    assert_eq!(0, ab.u8_getter());
 }
 
 #[test]
@@ -654,6 +669,21 @@ bitfield! {
     signed_foo2, set_signed_foo2: 7, 0;
     signed_foo3, set_signed_foo3: 8, 1;
     signed_foo4, set_signed_foo4: 19, 4;
+    u8, u8_getter, set_u8: 11, 4;
+}
+
+#[test]
+fn test_arraybitfield_msb0_u8() {
+    let mut ab = ArrayBitfieldMsb0([0; 3]);
+
+    ab.set_u8(0xA5);
+    assert_eq!([0x0A, 0x50, 0x00], ab.0);
+    assert_eq!(0xA5, ab.u8_getter());
+
+    ab.0 = [0xFF; 3];
+    ab.set_u8(0);
+    assert_eq!([0xF0, 0x0F, 0xFF], ab.0);
+    assert_eq!(0, ab.u8_getter());
 }
 
 #[test]
